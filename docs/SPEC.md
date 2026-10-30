@@ -30,6 +30,46 @@ who signed off on the latest change. The app's job is to make the *drawing*
 itself version-controlled and permissioned the way code is, while staying
 usable by non-developers on a phone, often outdoors with patchy signal.
 
+## 1.1 Validated against a real site
+
+Grounding this in a specific, lived example rather than a generic persona:
+on a large 3PL warehouse build, the founder installed structured/data
+cabling and CCTV. Confirmed directly (not assumed) about how that site
+actually ran:
+
+- **What went wrong, concretely**: wrong install location (mounting/routing
+  done against a drawing that no longer matched what was physically there)
+  and wasted site visits / rework redoing the work once the mismatch
+  surfaced — not primarily clashes with other trades' installed equipment
+  or failed inspections, though those are adjacent risks of the same root
+  cause.
+- **How updates actually moved**: email. Per-revision PDF attachments, no
+  shared platform in consistent use by the trades. This is the baseline
+  the app has to beat — not "better than Procore," but "better than a PDF
+  in an inbox with no way to tell if it's the latest one."
+- **Who owned "current"**: each trade owned and published its own
+  drawings independently. There was no single cross-trade authority
+  reconciling them — which validates the access-grant model in §3.4/§4 as
+  designed (per-Drawing/per-Set grants, not one site-wide publisher role)
+  and means the **Drawing Set / amalgamation feature carries the real
+  value-add**: it's the only place a cross-trade view exists at all, since
+  no human role was filling that function on this job.
+- **Highest-leverage fix, by the installer's own ranking**: a push alert
+  the moment a drawing relevant to their trade changes — ranked above
+  trade-filtered views, in-drawing clash flagging, and offline access.
+  This reprioritizes the roadmap: §3.3's publish notification is not a
+  nice-to-have alongside the other v1 features, it's the single feature
+  that would have prevented the specific failure described (wrong install
+  location from a stale drawing) on its own, independent of whether
+  amalgamation or review threads ever got used. Build and validate it
+  first.
+
+External, industry-wide research backing this pattern (cost of rework and
+document-control failures in construction generally, and whether this is
+recognized as a widespread problem for specialty/low-voltage trades
+specifically) is being gathered separately and will be appended below once
+back, with sources cited rather than asserted from memory.
+
 ## 2. Core concepts
 
 | Concept | Definition |
@@ -209,6 +249,15 @@ the overlay canvas — is identical.
 
 ## 8. Open questions for next pass
 
+Resolved by direct founder input (§1.1): the install-location/rework
+failure mode, email as the baseline to beat, per-trade drawing ownership
+(no cross-trade authority), and publish-notification as the top-priority
+fix. Still open:
+
+- Push alert scope: notify on *every* publish to a Drawing/Set the user
+  has access to, or only when the change falls within a region/area the
+  user has flagged as relevant to them (avoids alert fatigue once a Set
+  has many trades in it)?
 - Do revisions need a formal diff/overlay (old vs. new) beyond "view both
   side by side," or is that a v2 feature?
 - Should `require_resolved_before_publish` be a hard block or a warning an
@@ -218,3 +267,7 @@ the overlay canvas — is identical.
   conversion API) before upload?
 - Multi-site / multi-tenant admin (a contractor working across several
   sites) — same account, switch Site context, or separate accounts per site?
+- Given no cross-trade authority existed on the reference site, who in the
+  app's model is allowed to *create* a Drawing Set / designate the
+  linchpin — any user, or does that need its own permission tier so Sets
+  don't end up duplicated/conflicting across trades?
