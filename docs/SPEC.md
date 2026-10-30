@@ -64,11 +64,114 @@ actually ran:
   amalgamation or review threads ever got used. Build and validate it
   first.
 
-External, industry-wide research backing this pattern (cost of rework and
-document-control failures in construction generally, and whether this is
-recognized as a widespread problem for specialty/low-voltage trades
-specifically) is being gathered separately and will be appended below once
-back, with sources cited rather than asserted from memory.
+## 1.2 External evidence — trade-specific pain & competitive gap
+
+Research findings below are web-search-sourced (vendor blogs, trade forums,
+case studies), not peer-reviewed — treated as directional corroboration,
+not proof. A second pass verifying hard rework-cost figures is still
+running and will be appended as §1.3.
+
+**This is a recognized, recurring pattern, not a one-off:**
+- Fieldwire's document-control guide opens with a mechanical sub roughing
+  in a floor from a drawing two weeks out of date, framing it as routine.
+- LetsBuild/Aproplan case study: a warehouse-type project built racking, a
+  mezzanine, and an office in the wrong place off outdated drawings;
+  remediation estimated near £5M on an £8M contract.
+- building-code-forum.com: an electrician working off the original bid set
+  (not the current revision) installed ~$34,000 of the wrong fixtures on a
+  warehouse job.
+- Jonas Construction blog ("Drawing Updated Friday, Field Missed It
+  Monday"): explicitly argues that emailing/uploading a revision does not
+  guarantee the field crew sees it before acting on the old one.
+
+**Competitive landscape — where Procore/Autodesk Build/Bluebeam
+Studio/Fieldwire/Revizto leave a gap for specialty/low-voltage trades:**
+- **Cost**: priced for GC-scale contract volume (Procore reviews cite
+  ~$6-13k/yr for a $5-10M/yr sub; Revizto requires per-seat annual minimums)
+  — hard to justify for a small cabling/CCTV crew on one job.
+- **GC-centric licensing**: subs are typically invited as guest seats
+  project-by-project on the GC's instance, not running their own
+  cross-project system of record — which matches our founder's
+  experience of no shared platform actually being used.
+- **Workflow mismatch**: Autodesk Build assumes a Revit/AutoCAD-centric
+  design workflow; Fieldwire is noted as the better fit for small/mid
+  specialty trades, but is still deployed GC-first.
+- No source found describes a **sub-owned, cross-project, trade-to-trade
+  notification layer** — i.e. a tool the cabling company itself runs
+  across all its jobs/GCs, rather than a hub it's a guest in. That's this
+  app's lane.
+
+**Amalgamation feature's gap check**: clash detection as practiced
+(Navisworks, Revizto, BIM 360/ACC) is a 3D/BIM, pre-construction activity
+run by VDC coordinators, not installers. Bluebeam Studio's 2D overlay/
+compare is the closest desktop equivalent but is a paid-tier, manually-
+fiddly power-user workflow — no source found describes a mobile-first,
+installer-usable, cross-trade 2D overlay used *during* installation
+(vs. pre-construction coordination). Supports amalgamation as genuinely
+differentiated rather than a weaker clone of existing BIM tooling.
+
+**Push-notification gap check**: only BuildPass ("Smart Notify" — marketed
+as "coming soon," not confirmed live) and Fieldwire (push/email digest)
+were found offering anything close to trade-targeted revision alerts;
+PlanGrid flags stale drawings reactively rather than pushing proactively.
+Corroborates push-on-publish (§1.1) as a real, largely unmet gap even
+among named competitors, not just this app's own assumption.
+
+## 1.3 External evidence — quantified cost of the problem
+
+Verified via multiple independent press recaps (primary PDF host was
+unreachable from the research sandbox; a direct fetch of
+pg.plangrid.com/.../Construction_Disconnected.pdf is recommended before
+using these externally, e.g. in a pitch deck):
+
+- **FMI Corporation & PlanGrid, "Construction Disconnected" (2018)**,
+  ~599 US construction leaders surveyed: **$177.5B/year** total US labor
+  cost of rework + searching for project data + conflict resolution.
+  Of that, **$31.3B/year** is rework specifically caused by poor project
+  data + miscommunication (48% of US rework). Field workers reported
+  ~5.5 hrs/week searching for project information and ~5 hrs/week on
+  conflict resolution — roughly a third of a working week on exactly the
+  class of problem this app targets.
+- **Autodesk/FMI, "Harnessing the Data Advantage in Construction" (2021)**,
+  3,900+ global professionals, 2020 data: "bad data" (inaccurate,
+  incomplete, inaccessible, inconsistent, or untimely) caused **$88.69B**
+  in global rework (14% of all rework that year), inside a **$1.85T**
+  global headline cost of bad data overall.
+- **McKinsey Global Institute, "Reinventing Construction" (2017)**: solid
+  macro framing (construction near the bottom of all sectors on
+  digitization; ~1%/year productivity growth for two decades; $1.6T global
+  productivity gap) but does **not** itself contain a rework/document cost
+  figure — any "McKinsey" rework number in circulation is actually the
+  FMI/PlanGrid figure misattributed. Use McKinsey only for the
+  digitization-lag framing, not a cost number.
+- **Specialty/low-voltage trades specifically**: no study found isolates
+  electrical, cabling, fire/life-safety, HVAC, or CCTV subcontractors'
+  document-control costs — a real gap in public literature. The founder's
+  firsthand account (§1.1) is currently the best evidence for this exact
+  population; frame it as qualitative validation filling a quantification
+  gap, not as an anecdote standing in for data that exists elsewhere. One
+  adjacent, not-fully-verified data point: a circulated 2019 figure that
+  >70% of subcontractors don't use mobile document-management tech, which
+  is at least directionally consistent with "trades work off emailed
+  PDFs, not a GC platform."
+- **Baseline-cost framing**: CII's project-benchmarking work (frequently
+  cross-cited in academic papers, primary report not directly accessed)
+  puts direct rework around ~5% of total construction cost, with older CII
+  industrial-project data as high as >12% and design-related deviations
+  driving ~80% of that. Use as an order-of-magnitude anchor, not a precise
+  figure.
+- **Flagged as unverified / do not cite externally**: "~70% of rework from
+  design-construction disconnect," "$280B annual US rework," and "~55% of
+  rework from inaccurate documentation" (the last traces to a vendor press
+  release with no named underlying study) all appear repeatedly in
+  secondary blog posts without a traceable primary source.
+
+**Bottom line for the pitch**: lead with the verified $31.3B/$177.5B
+(FMI/PlanGrid 2018) and $88.69B/$1.85T (Autodesk/FMI 2021) figures as the
+industry-scale problem, McKinsey for "construction is uniquely undigitized"
+context, and the founder's own account (§1.1) plus the trade-forum/case-study
+evidence (§1.2) as the specific, underserved-population proof point that no
+existing quantified study covers.
 
 ## 2. Core concepts
 
